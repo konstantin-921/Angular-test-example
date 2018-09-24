@@ -1,0 +1,37 @@
+.button {
+  float: left;
+  height: 30px;
+  padding: 0;
+  width: 120px;
+  cursor: pointer;
+  font: bold 15px Arial, Helvetica;
+  color: #8f5a0a;
+
+  background-color: #ffb94b;
+  background-image: linear-gradient('to top', #fddb6f, #ffb94b);
+
+  border-radius: 3px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d69e31 #e3a037 #d5982d #e3a037;
+}
+
+.button:focus {
+  background-color: #fddb6f;
+  background-image: linear-gradient('to top', #ffb94b, #fddb6f);
+  outline: none;
+}
+
+.button:hover {
+  background-color: #fddb6f;
+  background-image: linear-gradient('to top', #ffb94b, #fddb6f);
+  outline: none;
+}
+
+.button:active {
+  outline: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+}
