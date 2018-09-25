@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email, password): Observable<User> {
+  login(email: string, password: string): Observable<User> {
     const url = `${this.usersUrl}/signIn?email=${email}&password=${password}`;
     return this.http.get<User>(url).pipe(
       map(user => {
@@ -29,6 +29,14 @@ export class AuthService {
 
   registrate(data) {
     const url = `${this.usersUrl}/signUp`;
-    return this.http.post<User>(url, data, httpOptions);
+    return this.http.post<User>(url, data, httpOptions).pipe(
+      tap(user => console.log(user.message)),
+      map(user => {
+        if (user && user.token) {
+          localStorage.setItem('userToken', user.token);
+        }
+        return user;
+      })
+    );
   }
 }

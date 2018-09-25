@@ -10,7 +10,6 @@ import { AuthService } from '../auth.service';
 export class FormLoginComponent implements OnInit {
   model: any = {};
   returnUrl: string;
-  response: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +27,6 @@ export class FormLoginComponent implements OnInit {
   login() {
     this.authService
       .login(this.model.email, this.model.password)
-      .subscribe(response => (this.response = this.router.navigate(['home'])));
+      .subscribe(() => this.router.navigate(['/']));
   }
 }

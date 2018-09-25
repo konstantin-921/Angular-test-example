@@ -9,8 +9,6 @@ import { AuthService } from '../auth.service';
 })
 export class FormRegistrationComponent implements OnInit {
   model: any = {};
-  returnUrl: string;
-  response: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -30,11 +28,8 @@ export class FormRegistrationComponent implements OnInit {
       email: this.model.email,
       password: this.model.password
     };
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
     this.authService
       .registrate(data)
-      .subscribe(response => (this.response = response));
+      .subscribe(() => this.router.navigate(['/']));
   }
 }
