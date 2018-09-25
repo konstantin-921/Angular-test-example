@@ -1,9 +1,10 @@
-<form class="auth registration">
+<form class="auth registration" (ngSubmit)="f.form.valid && registrate()" #f="ngForm" novalidate>
   <h1 class="title">REGISTRATION</h1>
   <fieldset class="fieldset">
-    <input name="email" type="text" placeholder="email" class="input" />
-    <input name="pass" type="password" placeholder="password" class="input" />
-    <input name="pass" type="password" placeholder="repeat password" class="input" />
+    <input name="email" type="text" placeholder="email" class="input" [(ngModel)]="model.email" #email="ngModel" />
+    <input name="pass" type="password" placeholder="password" class="input" [(ngModel)]="model.password" #password="ngModel" />
+    <input name="repeatPass" type="password" placeholder="repeat password" class="input" [(ngModel)]="model.repeatPass"
+      #repeatPass="ngModel" />
   </fieldset>
   <fieldset class="fieldset action">
     <button type="submit" class='button'>REGISTRATION</button>
