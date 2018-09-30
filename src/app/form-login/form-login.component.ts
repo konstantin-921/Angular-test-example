@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-form-login',
@@ -10,27 +10,32 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FormLoginComponent implements OnInit {
 
-  profileForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  });
+  registerForm: FormGroup;
+  submitted = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    // reset login status
-    // this.authenticationService.logout();
-    // get return url from route parameters or default to '/'
-    // this.returnUrl = this.route.snapshot.queryParams['home'] || '/';
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
   }
 
+  get f() { return this.registerForm.controls; }
+
   login() {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.authService
-      .login(this.profileForm.value.email, this.profileForm.value.password)
+      .login(this.registerForm.value.email, this.registerForm.value.password)
       .subscribe(() => this.router.navigate(['/']));
   }
 }

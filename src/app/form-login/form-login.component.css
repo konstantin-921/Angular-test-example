@@ -1,7 +1,7 @@
 .auth {
   background-color: #fff;
   background-image: linear-gradient('to top', #fff, #eee);
-  height: 240px;
+  height: auto;
   width: 400px;
   margin: -200px 0 0 -230px;
   padding: 30px;
@@ -72,4 +72,8 @@ fieldset {
   line-height: 35px;
   margin-left: 10px;
   font-size: 16px;
+}
+
+.is-invalid {
+  border: 2px solid red;
 }

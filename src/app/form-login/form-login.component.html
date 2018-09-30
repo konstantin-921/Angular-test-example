@@ -1,8 +1,17 @@
-<form class="auth" name="auth" [formGroup]="profileForm" (ngSubmit)="login()">
+<form class="auth" name="auth" [formGroup]="registerForm" (ngSubmit)="login()">
   <h1 class="title">Login form</h1>
   <fieldset class="fieldset">
-    <input name="email" type="text" placeholder="email" class="input" formControlName="email" required />
-    <input name="pass" type="password" placeholder="password" class="input" formControlName="password" required />
+    <input name="email" type="text" placeholder="email" class="input" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+      required email />
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email is required</div>
+      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+    </div>
+    <input name="pass" type="password" placeholder="password" class="input" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+      required />
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+    </div>
   </fieldset>
   <fieldset class="fieldset action">
     <button type="submit" class='button'>LOGIN</button>
