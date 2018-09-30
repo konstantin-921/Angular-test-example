@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-login',
@@ -8,14 +9,17 @@ import { AuthService } from '../auth.service';
   templateUrl: 'form-login.component.html'
 })
 export class FormLoginComponent implements OnInit {
-  model: any = {};
-  returnUrl: string;
+
+  profileForm = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // reset login status
@@ -26,7 +30,7 @@ export class FormLoginComponent implements OnInit {
 
   login() {
     this.authService
-      .login(this.model.email, this.model.password)
+      .login(this.profileForm.value.email, this.profileForm.value.password)
       .subscribe(() => this.router.navigate(['/']));
   }
 }
