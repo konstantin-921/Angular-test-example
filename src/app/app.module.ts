@@ -10,16 +10,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormRegistrationComponent } from './form-registration/form-registration.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AuthGuard } from './auth-guard/auth-guard.component';
+import { AlertComponent } from './alert-component.directive';
+import { AlertService } from './alert-service.service'
 
 @NgModule({
   declarations: [
     AppComponent,
     FormLoginComponent,
     FormRegistrationComponent,
-    MainPageComponent
+    MainPageComponent,
+    AlertComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

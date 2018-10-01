@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { User } from './user';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +16,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<User> {
+  private handleError(error: HttpErrorResponse) {
+    return throwError(error.error.message);
+  };
+  
+
+  public login(email: string, password: string): Observable<User> {
     const url = `${this.usersUrl}/signIn?email=${email}&password=${password}`;
     return this.http.get<User>(url).pipe(
       map(user => {
@@ -27,7 +33,7 @@ export class AuthService {
     );
   }
 
-  registrate(data) {
+  public registrate(data): Observable<User> {
     const url = `${this.usersUrl}/signUp`;
     return this.http.post<User>(url, data, httpOptions).pipe(
       tap(user => console.log(user.message)),
@@ -36,7 +42,8 @@ export class AuthService {
           localStorage.setItem('userToken', user.token);
         }
         return user;
-      })
-    );
+      }),
+      catchError(this.handleError),
+    )
   }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { passValidator } from './custom-validators';
+import { AlertService } from '../alert-service.service';
 
 @Component({
   selector: 'app-form-registration',
@@ -8,28 +11,43 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./form-registration.component.css']
 })
 export class FormRegistrationComponent implements OnInit {
-  model: any = {};
+  registerForm: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
   ) {}
 
-  ngOnInit() {
-    // reset login status
-    // this.authenticationService.logout();
-    // get return url from route parameters or default to '/'
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      repeatPass: ['', [passValidator]]
+    });
   }
 
-  registrate() {
+  get f() { 
+    return this.registerForm.controls;
+  }
+
+  registrate(): void {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
     const data = {
-      email: this.model.email,
-      password: this.model.password
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password
     };
     this.authService
       .registrate(data)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(
+        () => this.router.navigate(['/']),
+        error => this.alertService.error(error),
+      );
   }
 }

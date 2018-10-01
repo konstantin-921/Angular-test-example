@@ -1,10 +1,20 @@
-<form class="auth registration" (ngSubmit)="f.form.valid && registrate()" #f="ngForm" novalidate>
+<form class="auth registration" [formGroup]="registerForm" (ngSubmit)="registrate()">
   <h1 class="title">REGISTRATION</h1>
   <fieldset class="fieldset">
-    <input name="email" type="text" placeholder="email" class="input" [(ngModel)]="model.email" #email="ngModel" />
-    <input name="pass" type="password" placeholder="password" class="input" [(ngModel)]="model.password" #password="ngModel" />
-    <input name="repeatPass" type="password" placeholder="repeat password" class="input" [(ngModel)]="model.repeatPass"
-      #repeatPass="ngModel" />
+    <input name="email" type="text" placeholder="email" class="input" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required email/>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email is required</div>
+      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+    </div>
+      <input name="pass" type="password" placeholder="password" class="input" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+      <input name="repeatPass" type="password" placeholder="repeat password" formControlName="repeatPass" [ngClass]="{ 'is-invalid': submitted && f.repeatPass.errors }" required />
+      <div *ngIf="submitted && f.repeatPass.errors" class="invalid-feedback">
+        <div *ngIf="f.repeatPass.errors.required">Password is required</div>
+        <div *ngIf="!f.repeatPass.valid">Repieted password entered incorrectly</div>
+      </div>
   </fieldset>
   <fieldset class="fieldset action">
     <button type="submit" class='button'>REGISTRATION</button>

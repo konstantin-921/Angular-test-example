@@ -11,7 +11,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 export class FormLoginComponent implements OnInit {
 
   registerForm: FormGroup;
-  submitted = false;
+  submitted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +20,7 @@ export class FormLoginComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -29,7 +29,7 @@ export class FormLoginComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  login() {
+  login(): void {
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
