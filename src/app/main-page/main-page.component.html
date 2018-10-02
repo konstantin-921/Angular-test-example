@@ -1,3 +1,12 @@
-<p>
-  main-page works!
-</p>
+<div class="container">
+    <div class="header">
+        <button class="button-flag flag-icon flag-icon-us" (click)="changeLanguage()"></button>
+        <fa-icon [icon]="faUser" size='2x' class='user-icon'></fa-icon>
+        <div class="user-name">{{name}}</div>
+        <button class="button button-logout">Logout</button>
+    </div>
+    <div class="main">
+        <button class="button add-button">Add new board</button>
+        <div class="info">No boards get</div>
+    </div>
+</div>

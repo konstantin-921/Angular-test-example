@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { passValidator } from './custom-validators';
-import { AlertService } from '../alert-service.service';
+import { AlertService } from '../service/alert-service.service';
 
 @Component({
   selector: 'app-form-registration',
@@ -46,8 +46,10 @@ export class FormRegistrationComponent implements OnInit {
     this.authService
       .registrate(data)
       .subscribe(
-        () => this.router.navigate(['/']),
-        error => this.alertService.error(error),
+        data => {
+          this.router.navigate(['/home']);
+        },
+          error => this.alertService.error(error),
       );
   }
 }

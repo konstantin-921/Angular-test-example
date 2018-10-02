@@ -6,9 +6,10 @@ import { AuthGuard } from './auth-guard/auth-guard.component';
 import { MainPageComponent } from './main-page/main-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: FormLoginComponent },
-  { path: 'registration', component: FormRegistrationComponent }
+  { path: 'registration', component: FormRegistrationComponent },
+  { path: 'home', component: MainPageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

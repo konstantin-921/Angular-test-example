@@ -1,0 +1,57 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    font: 14px Arial, Helvetica, sans-serif;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+.header {
+    flex: none;
+    display: flex;
+    justify-content: flex-end;
+    height: 32px;
+    padding: 4px;
+    background-color: rgb(74, 76, 77);
+  }
+
+.button-logout {
+  margin-left: 20%;
+}
+
+.user-icon {
+  color: white;
+  margin-left: auto;
+}
+
+.user-name {
+  color: white;
+}
+
+.add-button {
+  margin: 10px;
+  height: 100px;
+  width: 100px;
+}
+
+.add-button:focus {
+  outline: none;
+}
+
+.info {
+  margin: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.button-flag {
+  cursor: pointer;
+  width: 30px;
+  height: 23px;
+  border: none;
+  outline: none;
+  margin-top: 3px;
+  margin-left: auto;
+}

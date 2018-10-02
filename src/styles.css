@@ -35,6 +35,10 @@
   outline: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 }
+body {
+  margin: 0;
+}
+
 
 .auth {
   background-color: #fff;

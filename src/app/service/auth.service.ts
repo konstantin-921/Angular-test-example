@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { User } from './user';
+import { User } from '../model/user';
 
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -29,7 +29,8 @@ export class AuthService {
           localStorage.setItem('userToken', user.token);
         }
         return user;
-      })
+      }),
+      catchError(this.handleError),
     );
   }
 

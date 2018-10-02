@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AlertService } from '../service/alert-service.service';
 
 @Component({
   selector: 'app-form-login',
@@ -17,7 +18,8 @@ export class FormLoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,9 @@ export class FormLoginComponent implements OnInit {
     }
     this.authService
       .login(this.registerForm.value.email, this.registerForm.value.password)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(
+        () => this.router.navigate(['/home']),
+        error => this.alertService.error(error)
+      );
   }
 }
