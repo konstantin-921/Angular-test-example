@@ -41,7 +41,8 @@ export class FormRegistrationComponent implements OnInit {
     }
     const data = {
       email: this.registerForm.value.email,
-      password: this.registerForm.value.password
+      password: this.registerForm.value.password,
+      language: 'en',
     };
     this.authService
       .registrate(data)

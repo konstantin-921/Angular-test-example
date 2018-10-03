@@ -13,6 +13,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private usersUrl = 'http://localhost:3000/api/auth'; // URL to web api
+  public language: string;
 
   constructor(private http: HttpClient) {}
 
@@ -20,12 +21,12 @@ export class AuthService {
     return throwError(error.error.message);
   };
   
-
   public login(email: string, password: string): Observable<User> {
     const url = `${this.usersUrl}/signIn?email=${email}&password=${password}`;
     return this.http.get<User>(url).pipe(
       map(user => {
         if (user && user.token) {
+          this.language = user.language;
           localStorage.setItem('userToken', user.token);
         }
         return user;
