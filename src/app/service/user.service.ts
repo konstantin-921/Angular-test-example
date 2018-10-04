@@ -6,9 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
  
 import { User } from '../model/user';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('userToken')}`}),
-};
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +21,32 @@ export class UserService {
     return throwError(error.error.message);
   };
 
+  private setHttpOptions() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('userToken')}`}),
+    };
+    return httpOptions;
+  }
+
   public getUser (): Observable<User> {
     const url = `${this.usersUrl}/currentUser`;
+    const httpOptions = this.setHttpOptions();
     return this.http.get<User>(url, httpOptions).pipe(
       map(user => {
-        console.log(user);
+        return user;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  public updateLanguage (lang): Observable<User> {
+    const url = `${this.usersUrl}/currentUser`;
+    const httpOptions = this.setHttpOptions();
+    const data = {
+      lang
+    };
+    return this.http.patch<User>(url, data, httpOptions).pipe(
+      map(user => {
         return user;
       }),
       catchError(this.handleError),

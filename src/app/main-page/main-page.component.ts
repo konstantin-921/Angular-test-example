@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 import { TranslateService } from '../service/translate.service';
-import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -15,22 +15,33 @@ export class MainPageComponent implements OnInit {
   currentLang: string = 'en';
 
 
-  constructor(private translate: TranslateService, private auth: AuthService, private userService: UserService) { }
+  constructor(
+    private translate: TranslateService,
+    private userService: UserService,
+    private router: Router) 
+    {}
 
   ngOnInit() {
-    this.currentLang = this.auth.language || 'en';
-    this.translate.use(this.currentLang);
     this.userService
     .getUser()
     .subscribe(
-      () => console.log('OOps'),
-      // error => this.alertService.error(error)
+      (user) => {
+        this.currentLang = user.language || 'en';
+        this.name = user.email;
+        this.translate.use(this.currentLang);
+      },
     );
+  }
+
+  logout = () => {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   setLang(lang: string) {
     this.translate.use(lang);
     this.currentLang = lang;
+    this.userService.updateLanguage(lang).subscribe(() => console.log('Success update language!'))
   }
 
   whatClassIsIt() {

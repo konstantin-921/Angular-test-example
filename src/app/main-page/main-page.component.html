@@ -2,12 +2,12 @@
     <div class="header">
         <button [ngClass]="whatClassIsIt()" [matMenuTriggerFor]="appMenu"></button>
         <mat-menu xPosition="after" yPosition="below" [overlapTrigger]="false" #appMenu="matMenu">
-            <button mat-menu-item (click)="setLang('ru') && currentClass = false">Russian</button>
-            <button mat-menu-item (click)="setLang('en') && currentClass = true">English</button>
+            <button mat-menu-item (click)="setLang('ru')">Russian</button>
+            <button mat-menu-item (click)="setLang('en')">English</button>
         </mat-menu>
         <fa-icon [icon]="faUser" size='2x' class='user-icon'></fa-icon>
         <div class="user-name">{{name}}</div>
-        <button class="button button-logout">{{'Logout' | translate}}</button>
+        <button class="button button-logout" (click)="logout()">{{'Logout' | translate}}</button>
     </div>
     <div class="main">
         <button class="button add-button">{{'Add_new_board' | translate}}</button>

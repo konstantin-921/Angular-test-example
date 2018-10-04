@@ -39,7 +39,9 @@ export class FormLoginComponent implements OnInit {
     this.authService
       .login(this.registerForm.value.email, this.registerForm.value.password)
       .subscribe(
-        () => this.router.navigate(['/home']),
+        () => {
+          this.router.navigate(['/home']);
+        },
         error => this.alertService.error(error)
       );
   }
