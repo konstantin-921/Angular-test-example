@@ -48,16 +48,5 @@ export class AuthService {
       catchError(this.handleError),
     )
   }
-
-  // public secret(): Observable<User> {
-  //   const url = `${this.usersUrl}/secret`;
-  //   return this.http.post<User>(url, {}, httpOptions).pipe(
-  //     map(user => {
-  //       console.log(user)
-  //     }),
-  //     catchError(this.handleError),
-  //   )
-  // }
-
   
 }

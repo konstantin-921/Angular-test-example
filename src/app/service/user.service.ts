@@ -23,7 +23,7 @@ export class UserService {
 
   private setHttpOptions() {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('userToken')}`}),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `bearer ${localStorage.getItem('userToken')}`}),
     };
     return httpOptions;
   }

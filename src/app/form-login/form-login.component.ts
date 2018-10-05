@@ -42,7 +42,9 @@ export class FormLoginComponent implements OnInit {
         () => {
           this.router.navigate(['/home']);
         },
-        error => this.alertService.error(error)
+        error => {
+          this.alertService.error(error);
+        }
       );
   }
 }
