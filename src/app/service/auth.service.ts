@@ -15,12 +15,12 @@ export class AuthService {
   private usersUrl = 'http://localhost:3000/api/auth'; // URL to web api
   public language: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
     return throwError(error.error.message);
   };
-  
+
   public login(email: string, password: string): Observable<User> {
     const url = `${this.usersUrl}/signIn?email=${email}&password=${password}`;
     return this.http.get<User>(url).pipe(
@@ -48,5 +48,5 @@ export class AuthService {
       catchError(this.handleError),
     )
   }
-  
+
 }
